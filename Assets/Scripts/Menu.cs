@@ -38,6 +38,11 @@ public class Menu : MonoBehaviour
         gm.Reset();
         SceneManager.LoadScene("Level 5");
     }
+    public void Level6()
+    {
+        gm.Reset();
+        SceneManager.LoadScene("Level 6");
+    }
     public void Restart()
     {
         gm.Restart();

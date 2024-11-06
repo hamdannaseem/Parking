@@ -3,7 +3,6 @@ using UnityEngine.UI;
 
 public class CarController : MonoBehaviour
 {
-    //New Change 01/11/2024
     public WheelCollider frontLeftWheel;
     public WheelCollider frontRightWheel;
     public WheelCollider rearLeftWheel;
@@ -28,8 +27,6 @@ public class CarController : MonoBehaviour
     Rigidbody rb;
     Vector3 movement;
     public bool isReversing, Crashed = false;
-
-    public Text Score;
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -41,7 +38,6 @@ public class CarController : MonoBehaviour
         movement = rb.velocity;
         isReversing = Vector3.Dot(transform.forward, movement) < 0;
         UpdateNeedles();
-        SetScore();
     }
 
     void FixedUpdate()
@@ -144,24 +140,5 @@ public class CarController : MonoBehaviour
     void DisableControls()
     {
         this.enabled = false;
-    }
-    void SetScore()
-    {
-        if (remainingFuel / startingFuel > 0.75f)
-        {
-            Score.text = "Score: A";
-        }
-        else if (remainingFuel / startingFuel > 0.5f)
-        {
-            Score.text = "Score: B";
-        }
-        else if (remainingFuel / startingFuel > 0.25f)
-        {
-            Score.text = "Score: C";
-        }
-        else
-        {
-            Score.text = "Score: D";
-        }
     }
 }

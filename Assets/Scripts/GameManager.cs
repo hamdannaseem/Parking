@@ -10,7 +10,10 @@ public class GameManager : MonoBehaviour
     public GameObject StartUI, GameUI, EndUI;
     public Text EndText;
     public GameObject Next, Replay;
+    public GameObject Diamonds;
+    public GameObject[] Diamond = new GameObject[3];
     bool Started = false;
+    public static bool Hit = false;
     void Update()
     {
         if (Started)
@@ -32,7 +35,14 @@ public class GameManager : MonoBehaviour
     }
     public void Crash()
     {
-        EndText.text = "YOU CRASHED!";
+        if (Hit)
+        {
+            EndText.text = "YOU HIT SOMEONE!";
+        }
+        else
+        {
+            EndText.text = "YOU CRASHED!";
+        }
         Invoke("Lose", 0.5f);
     }
     public void FuelOut()
@@ -56,6 +66,20 @@ public class GameManager : MonoBehaviour
         EndUI.SetActive(true);
         FreeLook.gameObject.SetActive(false);
         Started = false;
+        Diamonds.SetActive(true);
+        int score = (int)(FindObjectOfType<CarController>().remainingFuel / FindObjectOfType<CarController>().startingFuel * 100);
+        if (score > 0)
+        {
+            Diamond[0].SetActive(true);
+        }
+        if (score > 33)
+        {
+            Diamond[1].SetActive(true);
+        }
+        if (score > 66)
+        {
+            Diamond[2].SetActive(true);
+        }
     }
     public void Restart()
     {
@@ -64,6 +88,6 @@ public class GameManager : MonoBehaviour
     }
     public void Reset()
     {
-        ParkingTrigger.Entered = false; ParkingTrigger.Inside = false; ParkingTrigger.Parked = false;
+        ParkingTrigger.Entered = false; ParkingTrigger.Inside = false; ParkingTrigger.Parked = false; Hit = false;
     }
 }
